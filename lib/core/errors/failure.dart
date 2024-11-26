@@ -1,5 +1,5 @@
 abstract class Failure {}
 
 class DatabaseFailure extends Failure {
-  DatabaseFailure({String? message});
+  DatabaseFailure(String message);
 }
