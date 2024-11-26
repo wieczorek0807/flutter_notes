@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_notes/core/data/database/local_database_client.dart';
 import 'package:flutter_notes/core/errors/failure.dart';
-import 'package:flutter_notes/features/notes/data/models/notes/notes_model.dart';
+import 'package:flutter_notes/features/notes/data/models/note/note_model.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:injectable/injectable.dart';
@@ -19,7 +19,7 @@ class LocalDatabaseClientImpl implements LocalDatabaseClient {
       if (Isar.instanceNames.isEmpty) {
         final dir = await getApplicationDocumentsDirectory();
         return await Isar.open(
-          [NotesModelSchema],
+          [NoteModelSchema],
           directory: dir.path,
         );
       }
@@ -30,10 +30,10 @@ class LocalDatabaseClientImpl implements LocalDatabaseClient {
   }
 
   @override
-  Future<Either<Failure, List<NotesModel>>> getNotes() async {
+  Future<Either<Failure, List<NoteModel>>> getNotes() async {
     try {
       final isar = await db;
-      final notes = await isar.notesModels.where().sortByCreationDateTimeDesc().findAll();
+      final notes = await isar.noteModels.where().sortByCreationDateTimeDesc().findAll();
       return Right(notes);
     } catch (e) {
       return Left(DatabaseFailure('Failed to get notes: $e'));
@@ -41,11 +41,11 @@ class LocalDatabaseClientImpl implements LocalDatabaseClient {
   }
 
   @override
-  Future<Either<Failure, void>> addNotes({required NotesModel notesModel}) async {
+  Future<Either<Failure, void>> addNote({required NoteModel noteModel}) async {
     try {
       final isar = await db;
       await isar.writeTxn(() async {
-        await isar.notesModels.put(notesModel);
+        await isar.noteModels.put(noteModel);
       });
       return const Right(null);
     } catch (e) {

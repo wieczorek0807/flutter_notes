@@ -1,8 +1,8 @@
 import 'package:isar/isar.dart';
-part 'notes_model.g.dart';
+part 'note_model.g.dart';
 
 @collection
-class NotesModel {
+class NoteModel {
   Id id = Isar.autoIncrement;
   DateTime? creationDateTime;
   String? content;
