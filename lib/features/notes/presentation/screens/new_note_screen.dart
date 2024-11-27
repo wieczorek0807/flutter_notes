@@ -7,6 +7,14 @@ class NewNoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Add Note'),
+      ),
+      body: const Center(
+        child: Text('note TextForm'),
+      ),
+    );
   }
 }
