@@ -42,7 +42,7 @@ dependencies:
   isar_flutter_libs: ^3.1.0+1
   path_provider: ^2.0.15
   get_it: ^7.6.7
-  auto_route: ^8.0.0
+  auto_route: ^8.3.0
   injectable: ^2.5.0
 
 dev_dependencies:
