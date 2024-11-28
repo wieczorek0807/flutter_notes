@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_notes/features/notes/presentation/screens/new_note_screen.dart';
+import 'package:flutter_notes/features/notes/presentation/screens/add_note_screen.dart';
 import 'package:flutter_notes/features/notes/presentation/screens/notes_screen.dart';
 import 'package:injectable/injectable.dart';
 
@@ -11,6 +11,6 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: NotesRoute.page, initial: true),
-        AutoRoute(page: NewNoteRoute.page),
+        AutoRoute(page: AddNoteRoute.page),
       ];
 }
