@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes/core/extensions/build_context_ext.dart';
 import 'package:flutter_notes/core/injection/injectable.dart';
 import 'package:flutter_notes/features/notes/presentation/cubits/add_note_cubit/add_note_cubit.dart';
-import 'package:flutter_notes/features/notes/presentation/cubits/notes_cubit/notes_cubit.dart';
-import 'package:flutter_notes/features/notes/presentation/screens/notes_screen.dart';
 
 @RoutePage()
 class AddNoteScreen extends StatelessWidget {
@@ -23,10 +21,10 @@ class AddNoteScreen extends StatelessWidget {
         child: BlocBuilder<AddNoteCubit, AddNoteState>(
           builder: (context, state) {
             return state.map(
-                initial: (_) => Text('initail'),
-                error: (_) => Text('error'),
-                submitting: (_) => Text('submitting'),
-                success: (_) => Text('success'));
+                initial: (_) => const Text('initail'),
+                error: (_) => const Text('error'),
+                submitting: (_) => const Text('submitting'),
+                success: (_) => const Text('success'));
           },
         ),
       ),

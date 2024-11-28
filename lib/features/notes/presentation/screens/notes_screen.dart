@@ -20,10 +20,29 @@ class NotesScreen extends StatelessWidget {
       body: BlocBuilder<NotesCubit, NotesState>(
         builder: (context, state) {
           return state.map(
-              initial: (_) => Text('initail'),
-              error: (_) => Text('error'),
-              loading: (_) => Text('loading'),
-              loaded: (_) => Text('loaded'));
+              initial: (_) => const Text('initail'),
+              error: (_) => const Text('error'),
+              loading: (_) => const Text('loading'),
+              loaded: (state) => Column(
+                    children: [
+                      Text('loaded'),
+                      Container(
+                        height: 300,
+                        width: 500,
+                        child: ListView.builder(
+                          itemCount: state.noteEntitiesList.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              child: ListTile(
+                                title: Text(state.noteEntitiesList[index].content),
+                                subtitle: Text(state.noteEntitiesList[index].creationDateTime.toString()),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ));
         },
       ),
       floatingActionButton: FloatingActionButton(

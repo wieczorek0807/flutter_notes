@@ -9,7 +9,4 @@ part 'add_note_cubit.freezed.dart';
 class AddNoteCubit extends Cubit<AddNoteState> {
   AddNoteCubit() : super(const AddNoteState.initial());
 
-  void dispose() {
-    print('add_note_cubit_dispose');
-  }
 }
