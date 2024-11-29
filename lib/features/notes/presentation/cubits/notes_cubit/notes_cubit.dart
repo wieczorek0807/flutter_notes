@@ -19,7 +19,6 @@ class NotesCubit extends Cubit<NotesState> {
     emit(const NotesState.loading());
     final result = await _notesUsecase.getAllNotes();
     result.fold((l) => emit(const NotesState.error()), (r) {
-      print(r.length);
       emit(NotesState.loaded(noteEntitiesList: r));
     });
   }

@@ -4,5 +4,5 @@ import 'package:flutter_notes/features/notes/domain/entities/note_entity/note_en
 
 abstract class NotesRepository {
   Future<Either<Failure, List<NoteEntity>>> getAllNotes();
-  Future<void> addNote({required NoteEntity noteEntity});
+  Future<Either<Failure, void>> addNote({required NoteEntity noteEntity});
 }

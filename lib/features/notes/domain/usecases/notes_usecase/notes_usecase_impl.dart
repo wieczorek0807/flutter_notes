@@ -12,7 +12,7 @@ class NotesUsecaseImpl implements NotesUsecase {
   NotesUsecaseImpl(this._repository);
 
   @override
-  Future<void> addNote({required NoteEntity noteEntity}) async {
+  Future<Either<Failure, void>> addNote({required NoteEntity noteEntity}) async {
     return await _repository.addNote(noteEntity: noteEntity);
   }
 

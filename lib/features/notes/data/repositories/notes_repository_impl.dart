@@ -12,8 +12,8 @@ class NotesRepositoryImpl implements NotesRepository {
   NotesRepositoryImpl(this._notesDataSource);
 
   @override
-  Future<void> addNote({required NoteEntity noteEntity}) async {
-    _notesDataSource.add(noteModel: noteEntity.toModel());
+  Future<Either<Failure, void>> addNote({required NoteEntity noteEntity}) async {
+    return _notesDataSource.add(noteModel: noteEntity.toModel());
   }
 
   @override

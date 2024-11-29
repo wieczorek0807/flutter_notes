@@ -4,5 +4,5 @@ import 'package:flutter_notes/features/notes/data/models/note/note_model.dart';
 
 abstract class NotesLocalDataSource {
   Future<Either<Failure, List<NoteModel>>> get();
-  Future<void> add({required NoteModel noteModel});
+  Future<Either<Failure, void>> add({required NoteModel noteModel});
 }

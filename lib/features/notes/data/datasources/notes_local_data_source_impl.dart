@@ -16,7 +16,7 @@ class NotesLocalDataSourceImpl implements NotesLocalDataSource {
   }
 
   @override
-  Future<void> add({required NoteModel noteModel}) async {
+  Future<Either<Failure, void>> add({required NoteModel noteModel}) async {
     return await _localDatabaseClient.addNote(noteModel: noteModel);
   }
 }
