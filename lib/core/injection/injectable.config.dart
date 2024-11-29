@@ -23,9 +23,9 @@ import '../../features/notes/domain/usecases/notes_usecase/notes_usecase.dart'
 import '../../features/notes/domain/usecases/notes_usecase/notes_usecase_impl.dart'
     as _i11;
 import '../../features/notes/presentation/cubits/add_note_cubit/add_note_cubit.dart'
-    as _i12;
-import '../../features/notes/presentation/cubits/notes_cubit/notes_cubit.dart'
     as _i13;
+import '../../features/notes/presentation/cubits/notes_cubit/notes_cubit.dart'
+    as _i12;
 import '../data/database/local_database_client.dart' as _i4;
 import '../data/database/local_database_client_impl.dart' as _i5;
 import '../routers/app_router.dart' as _i3;
@@ -49,10 +49,13 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i9.NotesRepositoryImpl(gh<_i6.NotesLocalDataSource>()));
     gh.factory<_i10.NotesUsecase>(
         () => _i11.NotesUsecaseImpl(gh<_i8.NotesRepository>()));
-    gh.factory<_i12.AddNoteCubit>(
-        () => _i12.AddNoteCubit(gh<_i10.NotesUsecase>()));
-    gh.singleton<_i13.NotesCubit>(
-        () => _i13.NotesCubit(gh<_i10.NotesUsecase>()));
+    gh.singleton<_i12.NotesCubit>(
+        () => _i12.NotesCubit(gh<_i10.NotesUsecase>()));
+    gh.factory<_i13.AddNoteCubit>(() => _i13.AddNoteCubit(
+          gh<_i10.NotesUsecase>(),
+          gh<_i12.NotesCubit>(),
+          gh<_i3.AppRouter>(),
+        ));
     return this;
   }
 }
