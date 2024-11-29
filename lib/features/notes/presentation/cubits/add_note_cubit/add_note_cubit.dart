@@ -19,7 +19,7 @@ class AddNoteCubit extends Cubit<AddNoteState> {
 
   Future<void> saveNote(String content) async {
     try {
-      emit(const AddNoteState.submitting());
+      emit(const AddNoteState.loading());
 
       if (content.trim().isEmpty) {
         emit(const AddNoteState.error(message: 'Note cannot be empty'));

@@ -34,7 +34,7 @@ class AddNoteScreen extends StatelessWidget {
             BlocConsumer<AddNoteCubit, AddNoteState>(
               builder: (context, state) {
                 return state.maybeWhen(
-                    submitting: () =>
+                    loading: () =>
                         ElevatedButton(onPressed: () {}, child: const CircularProgressIndicator()),
                     orElse: () => ElevatedButton(
                         onPressed: () {
