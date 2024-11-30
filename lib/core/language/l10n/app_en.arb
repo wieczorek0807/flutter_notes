@@ -1,11 +1,12 @@
 {
-  "notes" : "Notes",
+  "notes": "Notes",
   "addFirstNote": "Please add your first note",
-  "addNote" : "Add Note",
+  "dateFormat": "yyyy-MM-dd HH:mm",
+  "addNote": "Add Note",
 
-  "save" : "Save",
-  "addNoteHint" : "Write your note here...",
-  "successNoteSaved" : "Note saved successfully!",
+  "save": "Save",
+  "addNoteHint": "Write your note here...",
+  "successNoteSaved": "Note saved successfully!",
 
   "errorScreenMessage": "An unexpected error occurred. Please try again later.\nError message: {errorMessage}",
   "@errorScreenMessage": {
@@ -16,6 +17,4 @@
     }
   }
 }
-
-
 }
