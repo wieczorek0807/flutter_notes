@@ -18,9 +18,12 @@ class NotesCubit extends Cubit<NotesState> {
   Future<void> getNotes() async {
     emit(const NotesState.loading());
     final result = await _notesUsecase.getAllNotes();
+
     result.fold(
       (failure) => emit(NotesState.error(message: failure.message)),
-      (noteEntitiesList) => emit(NotesState.loaded(noteEntitiesList: noteEntitiesList)),
+      (noteEntities) => emit(
+        noteEntities.isEmpty ? const NotesState.initial() : NotesState.loaded(noteEntities: noteEntities),
+      ),
     );
   }
 }
