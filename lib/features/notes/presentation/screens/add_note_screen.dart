@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes/core/extensions/build_context_ext.dart';
 import 'package:flutter_notes/core/injection/injectable.dart';
+import 'package:flutter_notes/core/presentation/values/values.dart';
 import 'package:flutter_notes/core/presentation/widgets/app_default_screen.dart';
 import 'package:flutter_notes/features/notes/presentation/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:flutter_notes/features/notes/presentation/widgets/add_note_form.dart';
+import 'package:flutter_notes/features/notes/presentation/widgets/add_note_save_button.dart';
 
 @RoutePage()
 class AddNoteScreen extends StatelessWidget {
@@ -12,8 +15,7 @@ class AddNoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final myController = TextEditingController();
-
+    final controller = TextEditingController();
     final formKey = GlobalKey<FormState>();
 
     return AppDefaultScreen(
@@ -22,36 +24,9 @@ class AddNoteScreen extends StatelessWidget {
         create: (context) => getIt<AddNoteCubit>(),
         child: Column(
           children: [
-            Form(
-              key: formKey,
-              child: TextFormField(
-                controller: myController,
-                minLines: 3,
-                maxLines: 50,
-              ),
-            ),
-            const SizedBox(height: 15),
-            BlocConsumer<AddNoteCubit, AddNoteState>(
-              builder: (context, state) {
-                return state.maybeWhen(
-                    loading: () =>
-                        ElevatedButton(onPressed: () {}, child: const CircularProgressIndicator()),
-                    orElse: () => ElevatedButton(
-                        onPressed: () {
-                          context.read<AddNoteCubit>().saveNote(myController.text);
-                        },
-                        child: const Text('Save')));
-              },
-              listener: (context, state) {
-                state.maybeMap(
-                  orElse: () => {},
-                  error: (value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.red,
-                    content: Text(value.message),
-                  )),
-                );
-              },
-            ),
+            AddNoteForm(controller: controller, formKey: formKey),
+            const SizedBox(height: AppDimensions.spacerHeight),
+            AddNoteSaveButton(controller: controller)
           ],
         ),
       ),

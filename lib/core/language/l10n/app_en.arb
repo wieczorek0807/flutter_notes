@@ -1,5 +1,7 @@
 {
   "notes" : "Notes",
   "addNote" : "Add Note",
-  "save" : "Save"
+  "save" : "Save",
+  "addNoteHint" : "Write your note here...",
+  "successNoteSaved" : "Note saved successfully!"
 }
