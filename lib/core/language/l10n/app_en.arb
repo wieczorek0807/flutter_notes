@@ -1,7 +1,11 @@
 {
   "notes" : "Notes",
   "addNote" : "Add Note",
+
   "save" : "Save",
   "addNoteHint" : "Write your note here...",
-  "successNoteSaved" : "Note saved successfully!"
+  "successNoteSaved" : "Note saved successfully!",
+
+  "errorScreenTitle": "Error",
+  "errorScreenMessage": "Something went wrong. An unexpected error occurred. Please try again later."
 }
