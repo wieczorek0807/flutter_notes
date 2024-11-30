@@ -9,35 +9,26 @@ class NotesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ScrollConfiguration(
-        behavior: const ScrollBehavior().copyWith(scrollbars: false),
-        child: ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: noteEntities.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ListTile(
-                  title: Text(
-                    noteEntities[index].content,
-                    // textAlign: TextAlign.center,
-                  ),
-                  subtitle: Text(
-                    DateFormat('yyyy-MM-dd HH:mm').format(noteEntities[index].creationDateTime),
-                    textAlign: TextAlign.right,
-                  ),
-
-                  // subtitleTextStyle: TextStyle(),
-                ),
-                const Divider(),
-              ],
-            );
-          },
-        ),
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: noteEntities.length,
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            ListTile(
+              title: Text(
+                noteEntities[index].content,
+                //?? textAlign: TextAlign.center,
+              ),
+              subtitle: Text(
+                DateFormat('yyyy-MM-dd HH:mm').format(noteEntities[index].creationDateTime),
+                textAlign: TextAlign.right,
+              ),
+            ),
+            const Divider(),
+          ],
+        );
+      },
     );
   }
 }

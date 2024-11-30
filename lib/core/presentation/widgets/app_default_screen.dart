@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_notes/core/presentation/values/values.dart';
 
 class AppDefaultScreen extends StatelessWidget {
   const AppDefaultScreen({required this.title, required this.body, super.key, this.floatingActionButton});
@@ -13,11 +14,13 @@ class AppDefaultScreen extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(title),
         ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+        body: Padding(
+          padding: AppPadding.defaultScreenPadding,
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 500, minWidth: 200),
+              constraints: const BoxConstraints(
+                  maxWidth: AppDimensions.boxConstraintsMaxWidth,
+                  minWidth: AppDimensions.boxConstraintsMinWidth),
               child: body,
             ),
           ),
