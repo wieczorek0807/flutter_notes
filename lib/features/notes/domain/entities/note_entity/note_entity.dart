@@ -15,7 +15,7 @@ class NoteEntity with _$NoteEntity {
 
   factory NoteEntity.fromModel(NoteModel noteModel) {
     return NoteEntity(
-        id: noteModel.id, creationDateTime: noteModel.creationDateTime!, content: noteModel.content!);
+        id: noteModel.id, creationDateTime: noteModel.creationDateTime, content: noteModel.content);
   }
 
   NoteModel toModel() {
