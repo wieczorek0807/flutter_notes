@@ -8,18 +8,9 @@ class AddNoteSaveButton extends StatelessWidget {
   const AddNoteSaveButton({super.key, required this.controller});
   final TextEditingController controller;
 
-  void _showErrorSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: AppColors.error,
-        content: Text(message),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddNoteCubit, AddNoteState>(
+    return BlocBuilder<AddNoteCubit, AddNoteState>(
       builder: (context, state) {
         return state.maybeWhen(
           loading: () => const LinearProgressIndicator(),
@@ -27,12 +18,6 @@ class AddNoteSaveButton extends StatelessWidget {
             onPressed: () => context.read<AddNoteCubit>().saveNote(controller.text),
             child: Text(context.appLocalizations.save),
           ),
-        );
-      },
-      listener: (context, state) {
-        state.maybeWhen(
-          error: (message) => _showErrorSnackBar(context, message),
-          orElse: () {},
         );
       },
     );

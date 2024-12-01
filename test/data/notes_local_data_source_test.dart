@@ -1,3 +1,4 @@
+import 'package:flutter_notes/features/notes/data/datasources/notes_local_data_source.dart';
 import 'package:flutter_notes/features/notes/data/datasources/notes_local_data_source_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -12,7 +13,7 @@ import 'notes_local_data_source_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<LocalDatabaseClient>()])
 void main() {
   late MockLocalDatabaseClient mockLocalDatabaseClient;
-  late NotesLocalDataSourceImpl notesLocalDataSource;
+  late NotesLocalDataSource notesLocalDataSource;
 
   setUp(() {
     mockLocalDatabaseClient = MockLocalDatabaseClient();
@@ -48,13 +49,8 @@ void main() {
       final result = await notesLocalDataSource.get();
 
       expect(result.isLeft(), true);
-      result.fold(
-        (failure) {
-          expect(failure, isA<DatabaseFailure>());
-          expect((failure as DatabaseFailure).message, failureMessage);
-        },
-        (_) => fail('Expected Left, got Right'),
-      );
+      expect(result, isA<DatabaseFailure>());
+      expect((result as DatabaseFailure).message, failureMessage, reason: "Expected Left, got Right'");
 
       verify(mockLocalDatabaseClient.getNotes()).called(1);
     });
@@ -77,7 +73,7 @@ void main() {
     test('should return a Failure on error', () async {
       const failureMessage = 'Failed to add note';
       when(mockLocalDatabaseClient.addNote(noteModel: note)).thenAnswer(
-        (_) async => Left(DatabaseFailure(failureMessage)), // Error
+        (_) async => Left(DatabaseFailure(failureMessage)),
       );
 
       final result = await notesLocalDataSource.add(noteModel: note);

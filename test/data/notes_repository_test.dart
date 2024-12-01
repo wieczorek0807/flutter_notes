@@ -1,4 +1,4 @@
-import 'package:flutter_notes/features/notes/data/datasources/notes_local_data_source_impl.dart';
+import 'package:flutter_notes/features/notes/data/datasources/notes_local_data_source.dart';
 import 'package:flutter_notes/features/notes/data/repositories/notes_repository_impl.dart';
 import 'package:flutter_notes/features/notes/domain/entities/note_entity/note_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,9 +10,9 @@ import 'package:mockito/annotations.dart';
 
 import 'notes_repository_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<NotesLocalDataSourceImpl>()])
+@GenerateNiceMocks([MockSpec<NotesLocalDataSource>()])
 void main() {
-  late MockNotesLocalDataSourceImpl mockNotesLocalDataSource;
+  late MockNotesLocalDataSource mockNotesLocalDataSource;
   late NotesRepositoryImpl notesRepositoryImpl;
 
   final noteModel = NoteModel()
@@ -23,7 +23,7 @@ void main() {
   final noteEntity = NoteEntity(creationDateTime: DateTime(2011, 11, 11), content: 'Test note', id: 1);
 
   setUp(() {
-    mockNotesLocalDataSource = MockNotesLocalDataSourceImpl();
+    mockNotesLocalDataSource = MockNotesLocalDataSource();
     notesRepositoryImpl = NotesRepositoryImpl(mockNotesLocalDataSource);
   });
 
@@ -64,37 +64,37 @@ void main() {
     });
   });
 
-  // group('notesRepositoryImpl add', () {
-  //   // test('should return void on successful add', () async {
-  //   //   when(mockNotesLocalDataSource.add(noteModel: noteModel)).thenAnswer(
-  //   //     (_) async => const Right(null),
-  //   //   );
+  group('notesRepositoryImpl add', () {
+    test('should return void on successful add', () async {
+      when(mockNotesLocalDataSource.add(noteModel: anyNamed('noteModel'))).thenAnswer(
+        (_) async => const Right(null),
+      );
 
-  //   //   final result = await notesRepositoryImpl.addNote(noteEntity: noteEntity);
+      final result = await notesRepositoryImpl.addNote(noteEntity: noteEntity);
 
-  //   //   expect(result.isRight(), true);
+      expect(result.isRight(), true);
 
-  //   //   // verify(mockNotesLocalDataSource.add(noteModel: noteModel)).called(1);
-  //   // });
+      verify(mockNotesLocalDataSource.add(noteModel: anyNamed('noteModel'))).called(1);
+    });
 
-  //   // test('should return a Failure on error', () async {
-  //   //   const failureMessage = 'Failed to add note';
-  //   //   when(mockNotesLocalDataSource.add(noteModel: noteModel)).thenAnswer(
-  //   //     (_) async => Left<Failure, void>(DatabaseFailure(failureMessage)), // Error
-  //   //   );
+    test('should return a Failure on error', () async {
+      const failureMessage = 'Failed to add note';
+      when(mockNotesLocalDataSource.add(noteModel: anyNamed('noteModel'))).thenAnswer(
+        (_) async => Left(DatabaseFailure(failureMessage)),
+      );
 
-  //   //   final result = await notesRepositoryImpl.addNote(noteEntity: noteEntity);
+      final result = await notesRepositoryImpl.addNote(noteEntity: noteEntity);
 
-  //   //   expect(result.isLeft(), true);
-  //   //   result.fold(
-  //   //     (failure) {
-  //   //       expect(failure, isA<DatabaseFailure>());
-  //   //       expect((failure as DatabaseFailure).message, failureMessage);
-  //   //     },
-  //   //     (_) => fail('Expected Left, got Right'),
-  //   //   );
+      expect(result.isLeft(), true);
+      result.fold(
+        (failure) {
+          expect(failure, isA<DatabaseFailure>());
+          expect((failure as DatabaseFailure).message, failureMessage);
+        },
+        (_) => fail('Expected Left, got Right'),
+      );
 
-  //   //   verify(mockNotesLocalDataSource.add(noteModel: noteModel)).called(1);
-  //   // });
-  // });
+      verify(mockNotesLocalDataSource.add(noteModel: anyNamed('noteModel'))).called(1);
+    });
+  });
 }

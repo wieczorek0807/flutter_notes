@@ -1,23 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes/features/notes/domain/entities/note_entity/note_entity.dart';
-import 'package:flutter_notes/features/notes/domain/usecases/notes_usecase/notes_usecase.dart';
+import 'package:flutter_notes/features/notes/domain/services/notes_usecase/notes_service.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'notes_state.dart';
 part 'notes_cubit.freezed.dart';
 
-@singleton
+@injectable
 class NotesCubit extends Cubit<NotesState> {
-  NotesCubit(this._notesUsecase) : super(const NotesState.initial()) {
+  NotesCubit(this._notesService) : super(const NotesState.initial()) {
     getNotes();
   }
 
-  final NotesUsecase _notesUsecase;
+  final NotesService _notesService;
 
   Future<void> getNotes() async {
     emit(const NotesState.loading());
-    final result = await _notesUsecase.getAllNotes();
+    final result = await _notesService.getNotes();
 
     result.fold(
       (failure) => emit(NotesState.error(message: failure.message)),

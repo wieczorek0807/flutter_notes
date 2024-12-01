@@ -7,3 +7,11 @@ abstract class Failure {
 class DatabaseFailure extends Failure {
   DatabaseFailure(super.message);
 }
+
+class RepositoryFailure extends Failure {
+  RepositoryFailure(super.message);
+}
+
+class UseCaseFailure extends Failure {
+  UseCaseFailure(super.message);
+}
