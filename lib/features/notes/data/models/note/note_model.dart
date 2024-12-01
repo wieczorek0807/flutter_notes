@@ -4,6 +4,6 @@ part 'note_model.g.dart';
 @collection
 class NoteModel {
   Id id = Isar.autoIncrement;
-  DateTime? creationDateTime;
-  String? content;
+  late DateTime creationDateTime;
+  late String content;
 }
