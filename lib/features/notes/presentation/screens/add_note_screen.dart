@@ -23,6 +23,11 @@ class AddNoteScreen extends StatelessWidget {
     );
   }
 
+  void _succcess(BuildContext context) {
+    context.read<NotesCubit>().getNotes();
+    context.router.maybePop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = TextEditingController();
@@ -36,10 +41,7 @@ class AddNoteScreen extends StatelessWidget {
           listener: (context, state) {
             state.maybeWhen(
               error: (message) => _showErrorSnackBar(context, message),
-              success: () {
-                context.read<NotesCubit>().getNotes();
-                context.router.maybePop();
-              },
+              success: () => _succcess(context),
               orElse: () {},
             );
           },
