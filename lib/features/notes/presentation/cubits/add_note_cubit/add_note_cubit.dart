@@ -4,8 +4,6 @@ import 'package:flutter_notes/features/notes/domain/services/notes_service/notes
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
 part 'add_note_state.dart';
 part 'add_note_cubit.freezed.dart';
@@ -25,18 +23,13 @@ class AddNoteCubit extends Cubit<AddNoteState> {
         return;
       }
 
-      final generatedId = const Uuid().v1();
-      final noteEntity = NoteEntity(
-        id: generatedId,
-        creationDateTime: DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now()),
-        content: content.trim(),
-      );
+      final noteEntity = NoteEntity.createNewNote(content: content);
 
       final value = await _notesService.addNote(noteEntity: noteEntity);
 
       value.fold(
         (failure) => emit(AddNoteState.error(message: failure.message)),
-        (_) async => emit(const AddNoteState.success()),
+        (_) => emit(const AddNoteState.success()),
       );
     } catch (e) {
       emit(AddNoteState.error(message: 'An error occurred: ${e.toString()}'));

@@ -1,6 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_notes/core/extensions/build_context_ext.dart';
-import 'package:flutter_notes/core/injection/injectable.dart';
 import 'package:flutter_notes/core/routers/app_router.dart';
 
 class AddNoteFloatingActionButton extends StatelessWidget {
@@ -9,7 +9,7 @@ class AddNoteFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () => getIt<AppRouter>().push(const AddNoteRoute()),
+      onPressed: () => context.router.push(const AddNoteRoute()),
       tooltip: context.appLocalizations.addNote,
       child: const Icon(Icons.add),
     );

@@ -16,7 +16,6 @@ class NotesCubit extends Cubit<NotesState> {
   final NotesService _notesService;
 
   Future<void> getNotes() async {
-    print('NotesCubit - getNotes() called');
     emit(const NotesState.loading());
     final result = await _notesService.getNotes();
 

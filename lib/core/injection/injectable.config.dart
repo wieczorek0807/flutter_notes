@@ -13,20 +13,14 @@ import 'package:injectable/injectable.dart' as _i526;
 
 import '../../features/notes/data/datasources/notes_local_data_source.dart'
     as _i389;
-import '../../features/notes/data/datasources/notes_local_data_source_impl.dart'
-    as _i538;
 import '../../features/notes/data/repositories/notes_repository.dart' as _i303;
-import '../../features/notes/data/repositories/notes_repository_impl.dart'
-    as _i10;
 import '../../features/notes/domain/services/notes_service/notes_service.dart'
     as _i776;
-import '../../features/notes/domain/services/notes_service/notes_service_impl.dart'
-    as _i224;
 import '../../features/notes/presentation/cubits/add_note_cubit/add_note_cubit.dart'
     as _i61;
 import '../../features/notes/presentation/cubits/notes_cubit/notes_cubit.dart'
     as _i374;
-import '../data/database/local_database_client.dart' as _i381;
+import '../data/database/local_database_client.dart' as _i63;
 import '../routers/app_router.dart' as _i326;
 import 'module/database_module.dart' as _i484;
 
@@ -42,14 +36,14 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final databaseModule = _$DatabaseModule();
+    gh.singleton<_i63.LocalDatabaseClient>(() => databaseModule.instance);
     gh.singleton<_i326.AppRouter>(() => _i326.AppRouter());
-    gh.singleton<_i381.LocalDatabaseClient>(() => databaseModule.instance);
     gh.factory<_i389.NotesLocalDataSource>(
-        () => _i538.NotesLocalDataSourceImpl(gh<_i381.LocalDatabaseClient>()));
+        () => _i389.NotesLocalDataSource(gh<_i63.LocalDatabaseClient>()));
     gh.factory<_i303.NotesRepository>(
-        () => _i10.NotesRepositoryImpl(gh<_i389.NotesLocalDataSource>()));
+        () => _i303.NotesRepository(gh<_i389.NotesLocalDataSource>()));
     gh.factory<_i776.NotesService>(
-        () => _i224.NotesServiceImpl(gh<_i303.NotesRepository>()));
+        () => _i776.NotesService(gh<_i303.NotesRepository>()));
     gh.factory<_i61.AddNoteCubit>(
         () => _i61.AddNoteCubit(gh<_i776.NotesService>()));
     gh.factory<_i374.NotesCubit>(

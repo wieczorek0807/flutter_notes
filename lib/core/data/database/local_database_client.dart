@@ -9,66 +9,70 @@ import 'package:path_provider/path_provider.dart';
 typedef DatabaseObject = Map<String, dynamic>;
 
 abstract interface class ILocalDatabaseClient {
-  Future<Either<Failure, List<String>>> get({required DatabaseBox box});
-  Future<Either<Failure, void>> add({required DatabaseBox box, required String json});
+  Future<Either<Failure, List<DatabaseObject>>> get({required DatabaseBox box});
+  Future<Either<Failure, void>> add({required DatabaseBox box, required DatabaseObject value});
+  Future<Either<Failure, void>> clear({required DatabaseBox box});
 }
 
 class LocalDatabaseClient with UiLoggy implements ILocalDatabaseClient {
   LocalDatabaseClient();
 
-
   Future<void> init() async {
     try {
-      loggy.debug('_init start');
-      await getApplicationDocumentsDirectory().then((dir) => Hive.init(dir.path));
+      final appDir = await getApplicationDocumentsDirectory();
+      Hive.init(appDir.path);
 
-      for (var box in DatabaseBox.values) {
+      await Future.wait(DatabaseBox.values.map((box) async {
         await Hive.openBox(box.name);
-      }
-      loggy.debug('Hive Boxes have been successfully opened');
-      return Future.value('asd');
+      }));
     } catch (e) {
       loggy.error('Failed to open Hive database: $e');
       throw DatabaseFailure('Failed to open Hive database: $e');
     }
   }
 
-  @override
-  Future<Either<Failure, void>> add({
-    required DatabaseBox box,
-    required String json,
-  }) async {
-    loggy.debug('add was called');
+  Future<Box> _getBox(DatabaseBox box) async {
     try {
-      final dbBox = Hive.box(box.name);
-      await dbBox.add(json);
-      return const Right(null); // Sukces, zwracamy `null` jako wartość w przypadku `Right`
-    } catch (e, st) {
-      loggy.error('Failure to put value', e, st);
-      return Left(DatabaseFailure('Failed to add note: $e'));
+      return Hive.box(box.name);
+    } catch (e) {
+      loggy.error('Failed to get Hive box: $e');
+      throw DatabaseFailure('Failed to get Hive box: $e');
     }
   }
 
   @override
-  Future<Either<Failure, List<String>>> get({
-    required DatabaseBox box,
-  }) async {
-    loggy.debug('get was called');
+  Future<Either<Failure, void>> add({required DatabaseBox box, required DatabaseObject value}) async {
     try {
-      final dbBox = Hive.box(box.name);
+      final dbBox = await _getBox(box);
+      await dbBox.add(value);
+      return const Right(null);
+    } catch (e) {
+      loggy.error('Failure to add value: $e');
+      return Left(DatabaseFailure('Failed to add value: $e'));
+    }
+  }
 
-      // Pobieranie wszystkich wartości jako listy
-      final values = dbBox.values.cast<String>().toList();
-
-      if (values.isEmpty) {
-        return Left(DatabaseFailure('No records found'));
-      }
+  @override
+  Future<Either<Failure, List<DatabaseObject>>> get({required DatabaseBox box}) async {
+    try {
+      final dbBox = await _getBox(box);
+      final values = dbBox.values.cast<DatabaseObject>().toList();
       return Right(values);
-    } catch (e, st) {
-      // Logowanie błędu
+    } catch (e) {
+      loggy.error('Failure to fetch values: $e');
+      return Left(DatabaseFailure('Failed to fetch values: $e'));
+    }
+  }
 
-      loggy.error('Failure to get value', e, st);
-      return Left(DatabaseFailure('Failed to fetch notes: $e'));
+  @override
+  Future<Either<Failure, void>> clear({required DatabaseBox box}) async {
+    try {
+      final dbBox = await _getBox(box);
+      await dbBox.clear();
+      return const Right(null);
+    } catch (e) {
+      loggy.error('Failure to clear box: $e');
+      return Left(DatabaseFailure('Failed to clear box: $e'));
     }
   }
 }

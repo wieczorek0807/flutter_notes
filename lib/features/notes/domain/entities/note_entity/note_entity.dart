@@ -1,6 +1,7 @@
 import 'package:flutter_notes/features/notes/data/models/note_hive/note_model_hive.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 part 'note_entity.freezed.dart';
 
@@ -13,6 +14,16 @@ class NoteEntity with _$NoteEntity {
     required String creationDateTime,
     required String content,
   }) = _NoteEntity;
+
+  factory NoteEntity.createNewNote({
+    required String content,
+  }) {
+    return NoteEntity(
+      id: const Uuid().v1(),
+      creationDateTime: DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now()),
+      content: content.trim(),
+    );
+  }
 
   factory NoteEntity.fromModel(NoteModelHive noteModel) {
     return NoteEntity(
