@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_notes/core/errors/failure.dart';
 import 'package:flutter_notes/features/notes/data/datasources/notes_local_data_source.dart';
-import 'package:flutter_notes/features/notes/data/models/note_hive/note_model_hive.dart';
+import 'package:flutter_notes/features/notes/data/models/note/note_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loggy/loggy.dart';
 
 abstract interface class INotesRepository {
-  Future<Either<Failure, List<NoteModelHive>>> getAllNotes();
-  Future<Either<Failure, void>> addNote({required NoteModelHive noteModel});
+  Future<Either<Failure, List<NoteModel>>> getAllNotes();
+  Future<Either<Failure, void>> addNote({required NoteModel noteModel});
 }
 
 @injectable
@@ -17,7 +17,7 @@ class NotesRepository with UiLoggy implements INotesRepository {
   NotesRepository(this._notesDataSource);
 
   @override
-  Future<Either<Failure, void>> addNote({required NoteModelHive noteModel}) async {
+  Future<Either<Failure, void>> addNote({required NoteModel noteModel}) async {
     try {
       final result = await _notesDataSource.add(noteDto: noteModel.toDto());
       return result.fold(
@@ -31,13 +31,13 @@ class NotesRepository with UiLoggy implements INotesRepository {
   }
 
   @override
-  Future<Either<Failure, List<NoteModelHive>>> getAllNotes() async {
+  Future<Either<Failure, List<NoteModel>>> getAllNotes() async {
     try {
       final value = await _notesDataSource.get();
       return value.fold(
         (failure) => Left(failure),
         (notes) {
-          final noteModels = notes.map((e) => NoteModelHive.fromDto(e)).toList();
+          final noteModels = notes.map((e) => NoteModel.fromDto(e)).toList();
           return Right(noteModels);
         },
       );

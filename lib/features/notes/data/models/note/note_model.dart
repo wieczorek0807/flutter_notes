@@ -1,20 +1,20 @@
 import 'package:flutter_notes/features/notes/data/dto/note_dto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'note_model_hive.freezed.dart';
+part 'note_model.freezed.dart';
 
 @freezed
-class NoteModelHive with _$NoteModelHive {
-  const NoteModelHive._();
+class NoteModel with _$NoteModel {
+  const NoteModel._();
 
-  const factory NoteModelHive({
+  const factory NoteModel({
     required String id,
     required DateTime creationDateTime,
     required String content,
-  }) = _NoteModelHive;
+  }) = _NoteModel;
 
-  factory NoteModelHive.fromDto(NoteDto noteDto) {
-    return NoteModelHive(
+  factory NoteModel.fromDto(NoteDto noteDto) {
+    return NoteModel(
       id: noteDto.id,
       creationDateTime: noteDto.creationDateTime,
       content: noteDto.content,

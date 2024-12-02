@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_notes/core/data/database/database_box.dart';
 import 'package:flutter_notes/core/errors/failure.dart';
@@ -44,7 +46,8 @@ class LocalDatabaseClient with UiLoggy implements ILocalDatabaseClient {
   Future<Either<Failure, void>> add({required DatabaseBox box, required DatabaseObject value}) async {
     try {
       final dbBox = await _getBox(box);
-      await dbBox.add(value);
+      final dbo = json.encode(value);
+      await dbBox.add(dbo);
       return const Right(null);
     } catch (e) {
       loggy.error('Failure to add value: $e');
@@ -56,7 +59,8 @@ class LocalDatabaseClient with UiLoggy implements ILocalDatabaseClient {
   Future<Either<Failure, List<DatabaseObject>>> get({required DatabaseBox box}) async {
     try {
       final dbBox = await _getBox(box);
-      final values = dbBox.values.cast<DatabaseObject>().toList();
+      final dbo = dbBox.values.cast<String>().toList();
+      final values = dbo.map(json.decode).cast<DatabaseObject>().toList();
       return Right(values);
     } catch (e) {
       loggy.error('Failure to fetch values: $e');

@@ -1,4 +1,4 @@
-import 'package:flutter_notes/features/notes/data/models/note_hive/note_model_hive.dart';
+import 'package:flutter_notes/features/notes/data/models/note/note_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -25,16 +25,15 @@ class NoteEntity with _$NoteEntity {
     );
   }
 
-  factory NoteEntity.fromModel(NoteModelHive noteModel) {
+  factory NoteEntity.fromModel(NoteModel noteModel) {
     return NoteEntity(
         id: noteModel.id,
         creationDateTime: DateFormat('yyyy-MM-dd HH:mm').format(noteModel.creationDateTime),
         content: noteModel.content);
   }
 
-  NoteModelHive toModel() {
-    var noteModel =
-        NoteModelHive(id: id, creationDateTime: DateTime.parse(creationDateTime), content: content);
+  NoteModel toModel() {
+    var noteModel = NoteModel(id: id, creationDateTime: DateTime.parse(creationDateTime), content: content);
 
     return noteModel;
   }
