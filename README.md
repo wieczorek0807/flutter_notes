@@ -4,7 +4,7 @@ Flutter Notes is a simple note-taking application built with Flutter. It allows 
 
 ## Tech Stack 🚀
 - Flutter Bloc
-- Isar
+- Hive
 - Freezed
 - Get It
 - Auto Route
