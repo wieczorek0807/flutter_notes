@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_notes/core/extensions/build_context_ext.dart';
 import 'package:flutter_notes/features/notes/domain/entities/note_entity/note_entity.dart';
-import 'package:intl/intl.dart';
 
 class NotesList extends StatelessWidget {
   const NotesList({super.key, required this.noteEntities});
@@ -22,7 +20,7 @@ class NotesList extends StatelessWidget {
                 //?? textAlign: TextAlign.center,
               ),
               subtitle: Text(
-                DateFormat(context.appLocalizations.dateFormat).format(noteEntities[index].creationDateTime),
+                noteEntities[index].creationDateTime,
                 textAlign: TextAlign.right,
               ),
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes/core/extensions/build_context_ext.dart';
-import 'package:flutter_notes/core/presentation/values/values.dart';
 import 'package:flutter_notes/features/notes/presentation/cubits/add_note_cubit/add_note_cubit.dart';
 
 class AddNoteSaveButton extends StatelessWidget {

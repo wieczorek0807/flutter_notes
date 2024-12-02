@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes/features/notes/domain/entities/note_entity/note_entity.dart';
-import 'package:flutter_notes/features/notes/domain/services/notes_usecase/notes_service.dart';
+import 'package:flutter_notes/features/notes/domain/services/notes_service/notes_service.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 part 'add_note_state.dart';
 part 'add_note_cubit.freezed.dart';
@@ -23,8 +25,10 @@ class AddNoteCubit extends Cubit<AddNoteState> {
         return;
       }
 
+      final generatedId = const Uuid().v1();
       final noteEntity = NoteEntity(
-        creationDateTime: DateTime.now(),
+        id: generatedId,
+        creationDateTime: DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now()),
         content: content.trim(),
       );
 

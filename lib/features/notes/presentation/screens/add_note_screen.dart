@@ -5,7 +5,6 @@ import 'package:flutter_notes/core/extensions/build_context_ext.dart';
 import 'package:flutter_notes/core/injection/injectable.dart';
 import 'package:flutter_notes/core/presentation/values/values.dart';
 import 'package:flutter_notes/core/presentation/widgets/app_default_screen.dart';
-import 'package:flutter_notes/core/routers/app_router.dart';
 import 'package:flutter_notes/features/notes/presentation/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:flutter_notes/features/notes/presentation/cubits/notes_cubit/notes_cubit.dart';
 import 'package:flutter_notes/features/notes/presentation/widgets/add_note_form.dart';

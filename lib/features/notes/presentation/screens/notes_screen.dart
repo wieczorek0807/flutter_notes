@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes/core/extensions/build_context_ext.dart';
-import 'package:flutter_notes/core/presentation/values/values.dart';
 import 'package:flutter_notes/core/presentation/widgets/app_default_screen.dart';
 import 'package:flutter_notes/features/notes/presentation/cubits/notes_cubit/notes_cubit.dart';
 import 'package:flutter_notes/features/notes/presentation/widgets/add_note_floating_action_button.dart';

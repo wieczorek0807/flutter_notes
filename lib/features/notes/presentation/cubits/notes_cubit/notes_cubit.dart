@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes/features/notes/domain/entities/note_entity/note_entity.dart';
-import 'package:flutter_notes/features/notes/domain/services/notes_usecase/notes_service.dart';
+import 'package:flutter_notes/features/notes/domain/services/notes_service/notes_service.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -16,6 +16,7 @@ class NotesCubit extends Cubit<NotesState> {
   final NotesService _notesService;
 
   Future<void> getNotes() async {
+    print('NotesCubit - getNotes() called');
     emit(const NotesState.loading());
     final result = await _notesService.getNotes();
 
