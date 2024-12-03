@@ -12,6 +12,8 @@ Flutter Notes is a simple note-taking application built with Flutter. It allows 
 - Path Provider
 - Intl
 - Clean Architecture
+- Mockito
+- Bloc Test
 
 ## Setup
 

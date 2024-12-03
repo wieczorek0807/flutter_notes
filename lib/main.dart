@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_notes/core/data/database/database_box.dart';
 import 'package:flutter_notes/core/data/database/local_database_client.dart';
 import 'package:flutter_notes/core/injection/injectable.dart';
 import 'package:flutter_notes/core/presentation/styles/styles.dart';
@@ -37,5 +36,5 @@ class MyApp extends StatelessWidget {
 
 Future<void> asyncConfiguration() async {
   await LocalDatabaseClient().init();
-  await LocalDatabaseClient().clear(box: DatabaseBox.notes);
+  // await LocalDatabaseClient().clear(box: DatabaseBox.notes);
 }
