@@ -2,7 +2,7 @@ import 'package:flutter_notes/features/notes/data/dto/note_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('NoteModel', () {
+  group('NoteDoto', () {
     test('should create NoteDto instance with correct properties', () {
       final note = NoteDto(
         id: '1',

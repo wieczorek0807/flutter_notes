@@ -26,7 +26,7 @@ void main() {
     creationDateTime: DateTime(2024, 11, 11),
     content: 'Test Note',
   );
-  group('NotesLocalDataSourceImpl get', () {
+  group('NotesLocalDataSource get', () {
     test('should return a list of NoteDto when getNotes is successful', () async {
       when(mockLocalDatabaseClient.get(box: anyNamed('box')))
           .thenAnswer((_) async => Right([noteDto.toJson()]));

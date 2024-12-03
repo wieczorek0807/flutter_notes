@@ -32,7 +32,7 @@ void main() {
     notesRepository = NotesRepository(mockNotesLocalDataSource);
   });
 
-  group('getAllNotes', () {
+  group('notesRepository getAllNotes', () {
     test('should return a list of NoteEntity when successful', () async {
       when(mockNotesLocalDataSource.get()).thenAnswer((_) async => Right([noteDto]));
 
@@ -70,7 +70,7 @@ void main() {
     });
   });
 
-  group('addNote', () {
+  group('notesRepository addNote', () {
     test('should return void on successful add', () async {
       when(mockNotesLocalDataSource.add(noteDto: anyNamed('noteDto')))
           .thenAnswer((_) async => const Right(null));

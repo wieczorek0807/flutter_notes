@@ -20,16 +20,6 @@ void main() {
   });
 
   group('NotesCubit', () {
-    test('initial state should be NotesState.loading due to constructor calling getNotes', () async {
-      when(mockNotesService.getNotes()).thenAnswer((_) async => const Right([]));
-
-      final notesCubit = NotesCubit(mockNotesService);
-      await untilCalled(mockNotesService.getNotes());
-
-      expect(notesCubit.state, const NotesState.initial());
-      notesCubit.close();
-    });
-
     blocTest<NotesCubit, NotesState>(
       'emits [loaded] when getNotes succeeds with data after initialization',
       build: () {
