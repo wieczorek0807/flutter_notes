@@ -33,7 +33,8 @@ class NoteEntity with _$NoteEntity {
   }
 
   NoteModel toModel() {
-    var noteModel = NoteModel(id: id, creationDateTime: DateTime.parse(creationDateTime), content: content);
+    var noteModel =
+        NoteModel(id: id, creationDateTime: DateTime.parse(creationDateTime), content: content);
 
     return noteModel;
   }
