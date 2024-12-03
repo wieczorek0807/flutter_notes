@@ -5,6 +5,7 @@ import 'package:flutter_notes/core/data/database/database_box.dart';
 import 'package:flutter_notes/core/errors/failure.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:injectable/injectable.dart';
 import 'package:loggy/loggy.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -16,6 +17,7 @@ abstract interface class ILocalDatabaseClient {
   Future<Either<Failure, void>> clear({required DatabaseBox box});
 }
 
+@singleton
 class LocalDatabaseClient with UiLoggy implements ILocalDatabaseClient {
   LocalDatabaseClient();
 

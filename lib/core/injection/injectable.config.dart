@@ -22,7 +22,6 @@ import '../../features/notes/presentation/cubits/notes_cubit/notes_cubit.dart'
     as _i374;
 import '../data/database/local_database_client.dart' as _i63;
 import '../routers/app_router.dart' as _i326;
-import 'module/database_module.dart' as _i484;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -35,8 +34,7 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    final databaseModule = _$DatabaseModule();
-    gh.singleton<_i63.LocalDatabaseClient>(() => databaseModule.instance);
+    gh.singleton<_i63.LocalDatabaseClient>(() => _i63.LocalDatabaseClient());
     gh.singleton<_i326.AppRouter>(() => _i326.AppRouter());
     gh.factory<_i389.NotesLocalDataSource>(
         () => _i389.NotesLocalDataSource(gh<_i63.LocalDatabaseClient>()));
@@ -51,5 +49,3 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
-
-class _$DatabaseModule extends _i484.DatabaseModule {}
