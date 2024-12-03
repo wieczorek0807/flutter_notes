@@ -15,6 +15,19 @@ Flutter Notes is a simple note-taking application built with Flutter. It allows 
 - Mockito
 - Bloc Test
 
+## Screenshots
+
+Below are screenshots taken directly from the application.
+<table width="100%">
+  <tbody>
+    <tr>
+      <td width="1%"><img src="./assets/screen_shot_1.png"/></td>
+      <td width="1%"><img src="./assets/screen_shot_2.png"/></td>
+      <td width="1%"><img src="./assets/screen_shot_3.png"/></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Setup
 
 Run the following commands from your terminal:
