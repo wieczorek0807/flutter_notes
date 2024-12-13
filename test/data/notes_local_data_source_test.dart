@@ -1,13 +1,11 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_notes/core/data/database/local_database_client.dart';
 import 'package:flutter_notes/core/errors/failure.dart';
 import 'package:flutter_notes/features/notes/data/datasources/notes_local_data_source.dart';
-
 import 'package:flutter_notes/features/notes/data/dto/note_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:dartz/dartz.dart';
-
-import 'package:flutter_notes/core/data/database/local_database_client.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import 'notes_local_data_source_test.mocks.dart';
 
@@ -27,7 +25,8 @@ void main() {
     content: 'Test Note',
   );
   group('NotesLocalDataSource get', () {
-    test('should return a list of NoteDto when getNotes is successful', () async {
+    test('should return a list of NoteDto when getNotes is successful',
+        () async {
       when(mockLocalDatabaseClient.get(box: anyNamed('box')))
           .thenAnswer((_) async => Right([noteDto.toJson()]));
 
@@ -55,7 +54,8 @@ void main() {
       result.fold(
         (value) {
           expect(value, isA<Failure>());
-          expect((value as DatabaseFailure).message, failureMessage, reason: "Expected Left, got Right'");
+          expect((value as DatabaseFailure).message, failureMessage,
+              reason: "Expected Left, got Right'");
         },
         (_) => fail('Expected Left, got Right'),
       );
@@ -66,7 +66,11 @@ void main() {
 
   group('NotesLocalDataSource add', () {
     test('should return void on successful add', () async {
-      when(mockLocalDatabaseClient.add(value: anyNamed('value'), box: anyNamed('box'))).thenAnswer(
+      when(mockLocalDatabaseClient.putAtKey(
+              value: anyNamed('value'),
+              box: anyNamed('box'),
+              key: anyNamed('key')))
+          .thenAnswer(
         (_) async => const Right(null),
       );
 
@@ -74,12 +78,20 @@ void main() {
 
       expect(result.isRight(), true);
 
-      verify(mockLocalDatabaseClient.add(value: anyNamed('value'), box: anyNamed('box'))).called(1);
+      verify(mockLocalDatabaseClient.putAtKey(
+              value: anyNamed('value'),
+              box: anyNamed('box'),
+              key: anyNamed('key')))
+          .called(1);
     });
 
     test('should return a Failure on error', () async {
       const failureMessage = 'Failed to add note';
-      when(mockLocalDatabaseClient.add(value: anyNamed('value'), box: anyNamed('box'))).thenAnswer(
+      when(mockLocalDatabaseClient.putAtKey(
+              value: anyNamed('value'),
+              box: anyNamed('box'),
+              key: anyNamed('key')))
+          .thenAnswer(
         (_) async => Left(DatabaseFailure(failureMessage)),
       );
 
@@ -94,7 +106,11 @@ void main() {
         (_) => fail('Expected Left, got Right'),
       );
 
-      verify(mockLocalDatabaseClient.add(value: anyNamed('value'), box: anyNamed('box'))).called(1);
+      verify(mockLocalDatabaseClient.putAtKey(
+              value: anyNamed('value'),
+              box: anyNamed('box'),
+              key: anyNamed('key')))
+          .called(1);
     });
   });
 }

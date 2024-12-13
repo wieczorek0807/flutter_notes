@@ -30,7 +30,8 @@ class NotesLocalDataSource with UiLoggy implements INotesLocalDataSource {
       );
     } catch (e, st) {
       loggy.error('Error while getting notes: $e', e, st);
-      return Left(LocalDataSourceFailure('An unexpected error occurred while fetching notes: $e'));
+      return Left(LocalDataSourceFailure(
+          'An unexpected error occurred while fetching notes: $e'));
     }
   }
 
@@ -38,7 +39,8 @@ class NotesLocalDataSource with UiLoggy implements INotesLocalDataSource {
   Future<Either<Failure, void>> add({required NoteDto noteDto}) async {
     try {
       final noteJson = noteDto.toJson();
-      final result = await _localDatabaseClient.add(box: DatabaseBox.notes, value: noteJson);
+      final result = await _localDatabaseClient.putAtKey(
+          box: DatabaseBox.notes, value: noteJson, key: noteDto.id);
 
       return result.fold(
         (failure) => Left(failure),
@@ -46,7 +48,8 @@ class NotesLocalDataSource with UiLoggy implements INotesLocalDataSource {
       );
     } catch (e, st) {
       loggy.error('Error while adding note: $e', e, st);
-      return Left(LocalDataSourceFailure('An unexpected error occurred while adding the note: $e'));
+      return Left(LocalDataSourceFailure(
+          'An unexpected error occurred while adding the note: $e'));
     }
   }
 }

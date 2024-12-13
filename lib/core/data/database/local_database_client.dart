@@ -13,7 +13,10 @@ typedef DatabaseObject = Map<String, dynamic>;
 
 abstract interface class ILocalDatabaseClient {
   Future<Either<Failure, List<DatabaseObject>>> get({required DatabaseBox box});
-  Future<Either<Failure, void>> add({required DatabaseBox box, required DatabaseObject value});
+  Future<Either<Failure, void>> putAtKey(
+      {required DatabaseBox box,
+      required DatabaseObject value,
+      required String key});
   Future<Either<Failure, void>> clear({required DatabaseBox box});
 }
 
@@ -45,11 +48,14 @@ class LocalDatabaseClient with UiLoggy implements ILocalDatabaseClient {
   }
 
   @override
-  Future<Either<Failure, void>> add({required DatabaseBox box, required DatabaseObject value}) async {
+  Future<Either<Failure, void>> putAtKey(
+      {required DatabaseBox box,
+      required DatabaseObject value,
+      required String key}) async {
     try {
       final dbBox = await _getBox(box);
       final dbo = json.encode(value);
-      await dbBox.add(dbo);
+      await dbBox.put(key, dbo);
       return const Right(null);
     } catch (e) {
       loggy.error('Failure to add value: $e');
@@ -58,7 +64,8 @@ class LocalDatabaseClient with UiLoggy implements ILocalDatabaseClient {
   }
 
   @override
-  Future<Either<Failure, List<DatabaseObject>>> get({required DatabaseBox box}) async {
+  Future<Either<Failure, List<DatabaseObject>>> get(
+      {required DatabaseBox box}) async {
     try {
       final dbBox = await _getBox(box);
       final dbo = dbBox.values.cast<String>().toList();

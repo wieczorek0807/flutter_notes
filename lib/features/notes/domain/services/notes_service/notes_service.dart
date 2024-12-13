@@ -17,7 +17,8 @@ class NotesService with UiLoggy implements INotesService {
   NotesService(this._repository);
 
   @override
-  Future<Either<Failure, void>> addNote({required NoteEntity noteEntity}) async {
+  Future<Either<Failure, void>> addNote(
+      {required NoteEntity noteEntity}) async {
     try {
       final result = await _repository.addNote(noteModel: noteEntity.toModel());
 
@@ -39,8 +40,11 @@ class NotesService with UiLoggy implements INotesService {
       return noteModelsOrFailure.fold(
         (failure) => Left(failure),
         (noteModels) {
-          final noteEntities = noteModels.map((e) => NoteEntity.fromModel(e)).toList()
-            ..sort((a, b) => (b.id).compareTo(a.id));
+          final noteEntities = noteModels
+              .map((e) => NoteEntity.fromModel(e))
+              .toList()
+            ..sort(
+                (a, b) => (b.creationDateTime).compareTo(a.creationDateTime));
           return Right(noteEntities);
         },
       );
