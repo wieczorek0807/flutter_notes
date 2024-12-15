@@ -8,6 +8,7 @@ import 'package:loggy/loggy.dart';
 abstract interface class INotesService {
   Future<Either<Failure, List<NoteEntity>>> getNotes();
   Future<Either<Failure, void>> addNote({required NoteEntity noteEntity});
+  Future<Either<Failure, void>> deleteNote({required String noteId});
 }
 
 @injectable
@@ -51,6 +52,21 @@ class NotesService with UiLoggy implements INotesService {
     } catch (e) {
       loggy.error('Unexpected error while fetching notes: $e');
       return Left(DatabaseFailure('Failed to fetch notes: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteNote({required String noteId}) async {
+    try {
+      final result = await _repository.deleteNote(noteId: noteId);
+
+      return result.fold(
+        (failure) => Left(failure),
+        (_) => const Right(null),
+      );
+    } catch (e) {
+      loggy.error('Unexpected error while deleting note: $e');
+      return Left(ServeiceFailure('Failed to deleting note: ${e.toString()}'));
     }
   }
 }

@@ -9,6 +9,7 @@ import 'package:loggy/loggy.dart';
 abstract interface class INotesLocalDataSource {
   Future<Either<Failure, List<NoteDto>>> get();
   Future<Either<Failure, void>> add({required NoteDto noteDto});
+  Future<Either<Failure, void>> delete({required String noteId});
 }
 
 @injectable
@@ -50,6 +51,23 @@ class NotesLocalDataSource with UiLoggy implements INotesLocalDataSource {
       loggy.error('Error while adding note: $e', e, st);
       return Left(LocalDataSourceFailure(
           'An unexpected error occurred while adding the note: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> delete({required String noteId}) async {
+    try {
+      final result = await _localDatabaseClient.deleteAtKey(
+          box: DatabaseBox.notes, key: noteId);
+
+      return result.fold(
+        (failure) => Left(failure),
+        (_) => const Right(null),
+      );
+    } catch (e, st) {
+      loggy.error('Error while deleting the note: $e', e, st);
+      return Left(LocalDataSourceFailure(
+          'An unexpected error occurred while deleting the note: $e'));
     }
   }
 }

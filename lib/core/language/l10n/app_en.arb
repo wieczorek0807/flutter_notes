@@ -4,6 +4,7 @@
   "addNote": "Add Note",
 
   "save": "Save",
+  "delete": "Delete",
   "addNoteHint": "Write your note here...",
   "successNoteSaved": "Note saved successfully!",
 

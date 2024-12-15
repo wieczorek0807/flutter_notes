@@ -18,6 +18,8 @@ abstract interface class ILocalDatabaseClient {
       required DatabaseObject value,
       required String key});
   Future<Either<Failure, void>> clear({required DatabaseBox box});
+  Future<Either<Failure, void>> deleteAtKey(
+      {required DatabaseBox box, required String key});
 }
 
 @singleton
@@ -86,6 +88,19 @@ class LocalDatabaseClient with UiLoggy implements ILocalDatabaseClient {
     } catch (e) {
       loggy.error('Failure to clear box: $e');
       return Left(DatabaseFailure('Failed to clear box: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteAtKey(
+      {required DatabaseBox box, required String key}) async {
+    try {
+      final dbBox = await _getBox(box);
+      await dbBox.delete(key);
+      return const Right(null);
+    } catch (e) {
+      loggy.error('Failure to deleteAtKey: $e');
+      return Left(DatabaseFailure('Failed to deleteAtKey: $e'));
     }
   }
 }
