@@ -28,13 +28,16 @@ class NoteEntity with _$NoteEntity {
   factory NoteEntity.fromModel(NoteModel noteModel) {
     return NoteEntity(
         id: noteModel.id,
-        creationDateTime: DateFormat('yyyy-MM-dd HH:mm').format(noteModel.creationDateTime),
+        creationDateTime:
+            DateFormat('yyyy-MM-dd HH:mm').format(noteModel.creationDateTime),
         content: noteModel.content);
   }
 
   NoteModel toModel() {
-    var noteModel =
-        NoteModel(id: id, creationDateTime: DateTime.parse(creationDateTime), content: content);
+    var noteModel = NoteModel(
+        id: id,
+        creationDateTime: DateTime.parse(creationDateTime),
+        content: content);
 
     return noteModel;
   }

@@ -19,8 +19,10 @@ class NotesScreen extends StatelessWidget {
           builder: (context, state) {
             return state.when(
               initial: () => Text(context.appLocalizations.addFirstNote),
-              error: (message) => Text(context.appLocalizations.errorScreenMessage(message)),
-              loaded: (noteEntitiesList) => NotesList(noteEntities: noteEntitiesList),
+              error: (message) =>
+                  Text(context.appLocalizations.errorScreenMessage(message)),
+              loaded: (noteEntitiesList) =>
+                  NotesList(noteEntities: noteEntitiesList),
               loading: () => const CircularProgressIndicator(),
             );
           },

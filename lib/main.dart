@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_notes/core/data/database/local_database_client.dart';
 import 'package:flutter_notes/core/injection/injectable.dart';
 import 'package:flutter_notes/core/presentation/styles/styles.dart';
 import 'package:flutter_notes/core/provider/global_provider.dart';
 import 'package:flutter_notes/core/routers/app_router.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:loggy/loggy.dart';
 
 void main() async {

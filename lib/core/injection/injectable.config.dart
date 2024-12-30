@@ -18,6 +18,8 @@ import '../../features/notes/domain/services/notes_service/notes_service.dart'
     as _i776;
 import '../../features/notes/presentation/cubits/add_note_cubit/add_note_cubit.dart'
     as _i61;
+import '../../features/notes/presentation/cubits/edit_note_cubit/edit_note_cubit.dart'
+    as _i837;
 import '../../features/notes/presentation/cubits/notes_cubit/notes_cubit.dart'
     as _i374;
 import '../data/database/local_database_client.dart' as _i63;
@@ -46,6 +48,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i61.AddNoteCubit(gh<_i776.NotesService>()));
     gh.factory<_i374.NotesCubit>(
         () => _i374.NotesCubit(gh<_i776.NotesService>()));
+    gh.factory<_i837.EditNoteCubit>(
+        () => _i837.EditNoteCubit(gh<_i776.NotesService>()));
     return this;
   }
 }

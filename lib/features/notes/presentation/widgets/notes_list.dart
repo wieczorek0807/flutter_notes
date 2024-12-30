@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes/core/extensions/build_context_ext.dart';
+import 'package:flutter_notes/core/routers/app_router.dart';
 import 'package:flutter_notes/features/notes/domain/entities/note_entity/note_entity.dart';
 import 'package:flutter_notes/features/notes/presentation/cubits/notes_cubit/notes_cubit.dart';
 
@@ -33,11 +35,19 @@ class NotesList extends StatelessWidget {
                         .read<NotesCubit>()
                         .deleteNote(noteId: noteEntities[index].id);
                   }
+                  if (value == 'modify') {
+                    context.router
+                        .push(EditNoteRoute(noteEntity: noteEntities[index]));
+                  }
                 },
                 itemBuilder: (context) => [
                   PopupMenuItem(
                     value: 'delete',
                     child: Text(context.appLocalizations.delete),
+                  ),
+                  PopupMenuItem(
+                    value: 'modify',
+                    child: Text(context.appLocalizations.modify),
                   ),
                 ],
               ),
