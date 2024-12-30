@@ -7,8 +7,9 @@ import 'package:flutter_notes/core/presentation/values/values.dart';
 import 'package:flutter_notes/core/presentation/widgets/app_default_screen.dart';
 import 'package:flutter_notes/features/notes/presentation/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:flutter_notes/features/notes/presentation/cubits/notes_cubit/notes_cubit.dart';
-import 'package:flutter_notes/features/notes/presentation/widgets/add_note_form.dart';
 import 'package:flutter_notes/features/notes/presentation/widgets/add_note_save_button.dart';
+
+import '../widgets/note_content_form.dart';
 
 @RoutePage()
 class AddNoteScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class AddNoteScreen extends StatelessWidget {
     );
   }
 
-  void _succcess(BuildContext context) {
+  void _success(BuildContext context) {
     context.read<NotesCubit>().getNotes();
     context.router.maybePop();
   }
@@ -41,13 +42,13 @@ class AddNoteScreen extends StatelessWidget {
           listener: (context, state) {
             state.maybeWhen(
               error: (message) => _showErrorSnackBar(context, message),
-              success: () => _succcess(context),
+              success: () => _success(context),
               orElse: () {},
             );
           },
           child: Column(
             children: [
-              AddNoteForm(controller: controller, formKey: formKey),
+              NoteContentForm(controller: controller, formKey: formKey),
               const SizedBox(height: AppDimensions.spacerHeight),
               AddNoteSaveButton(controller: controller)
             ],

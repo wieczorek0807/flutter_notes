@@ -7,7 +7,7 @@ import 'package:flutter_notes/core/presentation/values/values.dart';
 import 'package:flutter_notes/core/presentation/widgets/app_default_screen.dart';
 import 'package:flutter_notes/features/notes/domain/entities/note_entity/note_entity.dart';
 import 'package:flutter_notes/features/notes/presentation/cubits/edit_note_cubit/edit_note_cubit.dart';
-import 'package:flutter_notes/features/notes/presentation/widgets/add_note_form.dart';
+import 'package:flutter_notes/features/notes/presentation/widgets/note_content_form.dart';
 
 import '../cubits/notes_cubit/notes_cubit.dart';
 import '../widgets/edit_note_save_button.dart';
@@ -39,7 +39,7 @@ class EditNoteScreen extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     return AppDefaultScreen(
-      title: context.appLocalizations.addNote,
+      title: context.appLocalizations.editNote,
       body: BlocProvider(
         create: (context) => getIt<EditNoteCubit>(),
         child: BlocListener<EditNoteCubit, EditNoteState>(
@@ -52,7 +52,7 @@ class EditNoteScreen extends StatelessWidget {
           },
           child: Column(
             children: [
-              AddNoteForm(controller: controller, formKey: formKey),
+              NoteContentForm(controller: controller, formKey: formKey),
               const SizedBox(height: AppDimensions.spacerHeight),
               EditNoteSaveButton(
                 controller: controller,

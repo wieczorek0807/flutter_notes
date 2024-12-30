@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_notes/core/extensions/build_context_ext.dart';
 
-class AddNoteForm extends StatelessWidget {
-  const AddNoteForm({super.key, required this.controller, required this.formKey});
+class NoteContentForm extends StatelessWidget {
+  const NoteContentForm(
+      {super.key, required this.controller, required this.formKey});
   final TextEditingController controller;
   final GlobalKey<FormState> formKey;
 
