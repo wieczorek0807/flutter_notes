@@ -18,41 +18,17 @@ class NotesList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: noteEntities.length,
       itemBuilder: (context, index) {
+        final note = noteEntities[index];
         return Column(
           children: [
             ListTile(
-              title: Text(
-                noteEntities[index].content,
-                //?? textAlign: TextAlign.center,
-              ),
+              title: Text(noteEntities[index].content),
               subtitle: Text(
+                textAlign: TextAlign.right,
                 DateFormat('yyyy-MM-dd HH:mm')
                     .format(noteEntities[index].creationDateTime),
-                textAlign: TextAlign.right,
               ),
-              trailing: PopupMenuButton(
-                onSelected: (value) {
-                  if (value == 'delete') {
-                    context
-                        .read<NotesCubit>()
-                        .deleteNote(noteId: noteEntities[index].id);
-                  }
-                  if (value == 'modify') {
-                    context.router
-                        .push(EditNoteRoute(noteEntity: noteEntities[index]));
-                  }
-                },
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    value: 'delete',
-                    child: Text(context.appLocalizations.delete),
-                  ),
-                  PopupMenuItem(
-                    value: 'modify',
-                    child: Text(context.appLocalizations.modify),
-                  ),
-                ],
-              ),
+              trailing: _buildPopupMenuButton(context, note),
               isThreeLine: true,
             ),
             const Divider(),
@@ -61,4 +37,29 @@ class NotesList extends StatelessWidget {
       },
     );
   }
+}
+
+Widget _buildPopupMenuButton(BuildContext context, NoteEntity note) {
+  return PopupMenuButton<String>(
+    onSelected: (value) {
+      switch (value) {
+        case 'delete':
+          context.read<NotesCubit>().deleteNote(noteId: note.id);
+          break;
+        case 'modify':
+          context.router.push(EditNoteRoute(noteEntity: note));
+          break;
+      }
+    },
+    itemBuilder: (context) => [
+      PopupMenuItem(
+        value: 'delete',
+        child: Text(context.appLocalizations.delete),
+      ),
+      PopupMenuItem(
+        value: 'modify',
+        child: Text(context.appLocalizations.modify),
+      ),
+    ],
+  );
 }
