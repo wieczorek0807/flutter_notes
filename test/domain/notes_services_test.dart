@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_notes/core/errors/failure.dart';
-import 'package:flutter_notes/features/notes/domain/entities/note_entity/note_entity.dart';
 import 'package:flutter_notes/features/notes/data/repositories/notes_repository.dart';
+import 'package:flutter_notes/features/notes/domain/entities/note_entity/note_entity.dart';
 import 'package:flutter_notes/features/notes/domain/services/notes_service/notes_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -16,7 +16,7 @@ void main() {
 
   final noteEntity = NoteEntity(
     id: '123',
-    creationDateTime: '2022-11-11 14:30',
+    creationDateTime: DateTime.now(),
     content: 'Sample Note',
   );
 
@@ -81,7 +81,8 @@ void main() {
 
       expect(result.isRight(), true);
 
-      verify(mockNotesRepository.addNote(noteModel: anyNamed('noteModel'))).called(1);
+      verify(mockNotesRepository.addNote(noteModel: anyNamed('noteModel')))
+          .called(1);
     });
 
     test('should return a Failure on repository failure', () async {
@@ -101,7 +102,8 @@ void main() {
         (_) => fail('Expected Left, got Right'),
       );
 
-      verify(mockNotesRepository.addNote(noteModel: anyNamed('noteModel'))).called(1);
+      verify(mockNotesRepository.addNote(noteModel: anyNamed('noteModel')))
+          .called(1);
     });
   });
 }
