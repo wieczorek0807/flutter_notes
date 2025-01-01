@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_notes/core/data/database/database_box.dart';
 import 'package:flutter_notes/core/errors/failure.dart';
 import 'package:hive_ce/hive.dart';
@@ -27,9 +28,14 @@ class LocalDatabaseClient with UiLoggy implements ILocalDatabaseClient {
   LocalDatabaseClient();
 
   Future<void> init() async {
+    var path = "/assets/db";
     try {
-      final appDir = await getApplicationDocumentsDirectory();
-      Hive.init(appDir.path);
+      if (!kIsWeb) {
+        final appDir = await getApplicationDocumentsDirectory();
+        path = appDir.path;
+      }
+
+      Hive.init(path);
 
       await Future.wait(DatabaseBox.values.map((box) async {
         await Hive.openBox(box.name);
