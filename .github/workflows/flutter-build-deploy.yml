@@ -24,8 +24,11 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Enable Flutter Web
+        run: flutter config --enable-web
+
       - name: Build Flutter Web app
-        run: flutter build web --release
+        run: flutter build web
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
