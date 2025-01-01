@@ -1,6 +1,6 @@
 # Flutter Notes 
 
-Flutter Notes is a simple note-taking application built with Flutter. It allows users to create and store their notes. 
+Flutter Notes is a simple note-taking application built with Flutter. It allows users to create, modify and delete their notes. 
 
 ## Tech Stack 🚀
 - Flutter Bloc
@@ -21,9 +21,9 @@ Below are screenshots taken directly from the application.
 <table width="100%">
   <tbody>
     <tr>
-      <td width="1%"><img src="./assets/screen_shot_1.png"/></td>
-      <td width="1%"><img src="./assets/screen_shot_2.png"/></td>
-      <td width="1%"><img src="./assets/screen_shot_3.png"/></td>
+      <td><img src="./assets/screen_shot_1.png"/></td>
+      <td><img src="./assets/screen_shot_2.png"/></td>
+      <td><img src="./assets/screen_shot_3.png"/></td>
     </tr>
   </tbody>
 </table>
