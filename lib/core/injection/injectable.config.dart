@@ -46,10 +46,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i776.NotesService(gh<_i303.NotesRepository>()));
     gh.factory<_i61.AddNoteCubit>(
         () => _i61.AddNoteCubit(gh<_i776.NotesService>()));
-    gh.factory<_i374.NotesCubit>(
-        () => _i374.NotesCubit(gh<_i776.NotesService>()));
     gh.factory<_i837.EditNoteCubit>(
         () => _i837.EditNoteCubit(gh<_i776.NotesService>()));
+    gh.factory<_i374.NotesCubit>(
+        () => _i374.NotesCubit(gh<_i776.NotesService>()));
     return this;
   }
 }
