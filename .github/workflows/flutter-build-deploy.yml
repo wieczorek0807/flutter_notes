@@ -16,22 +16,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.24.5'
+      - name: Install FVM via curl
+        run: curl -fsSL https://fvm.app/install.sh | bash
+
+      - name: Install Flutter version with FVM
+        run: fvm install
+
+      - name: Use Flutter version with FVM
+        run: fvm use
 
       - name: Install dependencies
-        run: flutter pub get
+        run: fvm flutter pub get
 
       - name: Enable Flutter Web
-        run: flutter create .
+        run: fvm flutter create .
 
       - name: Generate Freezed files
-        run: flutter pub run build_runner build --delete-conflicting-outputs      
+        run: fvm flutter pub run build_runner build --delete-conflicting-outputs
 
       - name: Build Flutter Web app
-        run: flutter build web --output=gh-pages --base-href=/flutter_notes/
+        run: fvm flutter build web --output=gh-pages --base-href=/flutter_notes/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
