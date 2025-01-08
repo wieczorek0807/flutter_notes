@@ -20,7 +20,7 @@ Flutter Notes is a simple note-taking application built with Flutter. It allows 
 
 ## App Preview
 Below are screenshots taken directly from the application.
-<table width="100%">
+<table>
   <tbody>
     <tr>
       <td><img src="./assets/screen_shot_1.png"/></td>
